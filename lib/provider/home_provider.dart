@@ -47,10 +47,8 @@ class HomeNotifier extends StateNotifier<AsyncValue<Catgram>> {
   Future<void> loadMorePost() async {
     final _isLoading = _ref.read(_postLoading);
     if (_isLoading) return;
-
     state.whenData((_catgram) async {
       _ref.read(_postLoading.notifier).update((_) => true);
-
       await tryCatch(() async {
         final _newPosts =
             await _ref.read(catgramPostProvider(_catgram.postPage + 1));
@@ -58,7 +56,6 @@ class HomeNotifier extends StateNotifier<AsyncValue<Catgram>> {
           _catgram.copyWith(posts: [..._catgram.posts, ..._newPosts]),
         );
       });
-
       _ref.read(_postLoading.notifier).update((_) => false);
     });
   }
@@ -66,19 +63,15 @@ class HomeNotifier extends StateNotifier<AsyncValue<Catgram>> {
   Future<void> loadMoreStory() async {
     var _isLoading = _ref.read(_storyLoading);
     if (_isLoading) return;
-
     state.whenData((_catgram) async {
       _ref.read(_storyLoading.notifier).update((_) => true);
-
       await tryCatch(() async {
         final _newStories =
             await _ref.read(catgramStoryProvider(_catgram.storyPage + 1));
         state = AsyncData(
           _catgram.copyWith(stories: [..._catgram.stories, ..._newStories]),
         );
-        // _ref.read(scaffoldKeyProvider).currentState?.clearSnackBars();
       });
-
       _ref.read(_storyLoading.notifier).update((_) => false);
     });
   }

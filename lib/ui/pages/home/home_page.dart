@@ -24,8 +24,6 @@ class _HomePageState extends ConsumerState<HomePage> {
       () {
         if (_scrollController.position.pixels >=
             _scrollController.position.maxScrollExtent) {
-          // loadMore();
-
           ref.read(homePageDataProvider.notifier).loadMorePost();
         }
       },
@@ -37,13 +35,6 @@ class _HomePageState extends ConsumerState<HomePage> {
     _scrollController.dispose();
     super.dispose();
   }
-
-  // void loadMore() async {
-  //   if (ref.read(postLoading)) return;
-  //   ref.read(postLoading.notifier).update((_) => true);
-  //   print("loadmore dipanggil");
-  //   await ref.read(homePageDataProvider.notifier).loadMorePost();
-  // }
 
   @override
   Widget build(BuildContext context) {
